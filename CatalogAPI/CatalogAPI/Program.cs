@@ -14,6 +14,8 @@ var mySqlConnectionStr = builder.Configuration.GetConnectionString("CatalogConne
 
 builder.Services.AddDbContext<AppDbContext>(options => options.UseMySql(mySqlConnectionStr, ServerVersion.AutoDetect(mySqlConnectionStr)));
 
+builder.Services.AddScoped<ApiLoggingFilter>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -21,6 +23,7 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    app.ConfigureExceptionHandler();
 }
 
 app.UseHttpsRedirection();
