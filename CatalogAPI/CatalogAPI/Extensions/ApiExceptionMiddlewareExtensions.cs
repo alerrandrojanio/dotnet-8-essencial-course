@@ -1,17 +1,21 @@
-namespace CatalogAPI.Extensions;
+using CatalogAPI.Models;
+using Microsoft.AspNetCore.Diagnostics;
+using System.Net;
 
-public static class ApiExceptionMiddlewareExternsions {
-    public statis void Configure(this IApplicationBuilder app)
+namespace APICatalogo.Extensions;
+
+public static class ApiExceptionMiddlewareExtensions
+{
+    public static void ConfigureExceptionHandler(this IApplicationBuilder app)
     {
-        app.UseExceptionHandler(appError => 
+        app.UseExceptionHandler(appError =>
         {
-            appError.Run(async context => 
+            appError.Run(async context =>
             {
                 context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
                 context.Response.ContentType = "application/json";
 
-                var contextFeature = context.Feature.Get<IExceptionHendlerFeature>();
-
+                var contextFeature = context.Features.Get<IExceptionHandlerFeature>();
                 if (contextFeature != null)
                 {
                     await context.Response.WriteAsync(new ErrorDetails()
@@ -19,9 +23,9 @@ public static class ApiExceptionMiddlewareExternsions {
                         StatusCode = context.Response.StatusCode,
                         Message = contextFeature.Error.Message,
                         Trace = contextFeature.Error.StackTrace
-                    }.Serialize());
+                    }.ToString());
                 }
-            };)
+            });
         });
     }
 }

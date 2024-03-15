@@ -2,7 +2,7 @@ using System.Text.Json;
 
 namespace CatalogAPI.Models;
 
-public class ErrorDatails {
+public class ErrorDetails {
     public int StatusCode { get; set; }
 
     public string? Message { get; set; }
@@ -11,6 +11,6 @@ public class ErrorDatails {
 
     public string Serialize() 
     {
-        return JsonSelizer.Serialize(this);
+        return JsonSerializer.Serialize(this);
     } 
 }

@@ -1,4 +1,6 @@
+using APICatalogo.Extensions;
 using CatalogAPI.Context;
+using CatalogAPI.Filters;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -23,7 +25,6 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
-    app.ConfigureExceptionHandler();
 }
 
 app.UseHttpsRedirection();

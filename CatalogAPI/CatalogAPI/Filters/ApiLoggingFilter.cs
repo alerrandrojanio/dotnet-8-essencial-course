@@ -12,11 +12,11 @@ public class ApiLoggingFilter : IActionFilter {
 
     public void OnActionExecuting(ActionExecutingContext context)
     {
-        _logger.LogInformation("");
+        _logger.LogInformation($"{DateTime.Now.ToLongTimeString()}");
     }
 
     public void OnActionExecuted(ActionExecutedContext context)
     {
-        _logger.LogInformation("");
+        _logger.LogInformation($"{DateTime.Now.ToLongTimeString()}");
     }
 }
